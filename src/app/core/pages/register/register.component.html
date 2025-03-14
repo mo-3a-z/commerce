@@ -1,0 +1,125 @@
+<div class="py-[80px]">
+
+
+    
+
+    <form [formGroup]="registerForm" (ngSubmit)="register()" class="max-w-md mx-auto">
+
+        @if(apiError){
+            <div class="flex p-4 mt-1 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+            role="alert">
+        
+            {{apiError}}
+    
+            </div>
+          }  
+        
+
+        <div class="relative z-0 w-full mb-5 group">
+            @let nameControl=registerForm.get('name');
+            <input formControlName="name" type="text" name="floating_name" id="floating_email" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-main dark:border-gray-600 dark:focus:border-main focus:outline-none focus:ring-0 focus:border-main
+            peer" placeholder="" required />
+            <label for="floating_name"
+                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-main peer-focus:dark:text-main peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">User
+                Name</label>
+        </div>
+        <div class="relative z-0 w-full mb-5 group">
+
+            @let emailControl=registerForm.get('email') ;
+            <input formControlName="email" type="email" name="floating_email" id="floating_email" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-main dark:border-gray-600 dark:focus:border-main focus:outline-none focus:ring-0 focus:border-main
+            peer" placeholder="" required />
+            <label for="floating_email"
+                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-main peer-focus:dark:text-main peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">User
+                Email</label>
+            @if (emailControl?.errors &&emailControl?.touched ) {
+            <div class="flex p-4 mt-1 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                role="alert">
+                <ul class="mt-1.5 list-disc list-inside">
+                    @if (emailControl?.getError('required')) {
+                    <li>email Is Required</li>
+                    }@else if (emailControl?.getError('email')) {
+                    <li>Invlid Email</li>
+                    }
+                </ul>
+            </div>
+            }
+        </div>
+        <div class="relative z-0 w-full mb-5 group">
+
+            @let passwordControl=registerForm.get('password') ;
+
+            <input formControlName="password" type="password" name="floating_password" id="floating_password" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-main dark:border-gray-600 dark:focus:border-main focus:outline-none focus:ring-0 focus:border-main
+            peer" placeholder="" required />
+            <label for="floating_password"
+                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-main peer-focus:dark:text-main peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
+
+            @if (passwordControl?.errors &&passwordControl?.touched ) {
+            <div class="flex p-4 mt-1 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                role="alert">
+                <ul class="mt-1.5 list-disc list-inside">
+                    @if (passwordControl?.getError('required')) {
+                    <li>Password Is Required</li>
+                    }@else if (passwordControl?.getError('pattern')) {
+                    <li>Invlid Pattern</li>
+                    }
+                </ul>
+            </div>
+            }
+
+        </div>
+        <div class="relative z-0 w-full mb-5 group">
+            @let rePasswordControl=registerForm.get('rePassword') ;
+            <input formControlName="rePassword" type="password" name="floating_rePassword" id="floating_rePassword"
+                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-main dark:border-gray-600 dark:focus:border-main focus:outline-none focus:ring-0 focus:border-main
+            peer" placeholder="" required />
+            <label for="floating_rePassword"
+                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-main peer-focus:dark:text-main peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Re Password</label>
+
+            @if (rePasswordControl?.touched &&rePasswordControl?.errors || registerForm.getError('misMatch')) {
+            <div class="flex p-4 mt-1 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"role="alert">
+                <ul class="mt-1.5 list-disc list-inside">
+                    @if (rePasswordControl?.getError('required')) {
+                    <li>rePassword Is Required</li>
+                    }@else if (rePasswordControl?.getError('pattern')) {
+                    <li>Invlid rePassword</li>
+                    }
+                    @else if (registerForm?.getError('misMatch')) {
+                    <li>Password And rePassword Must Be Matched</li>
+                    }
+                </ul>
+            </div>
+            }
+        </div>
+        <div class="relative z-0 w-full mb-5 group">
+            @let phoneControl=registerForm.get('phone') ;
+
+            <input formControlName="phone" type="tel" name="floating_phone" id="floating_phone" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-main dark:border-gray-600 dark:focus:border-main focus:outline-none focus:ring-0 focus:border-main
+            peer" placeholder="" required />
+            <label for="floating_phone"
+                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-main peer-focus:dark:text-main peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Phone</label>
+            @if (phoneControl?.errors &&phoneControl?.touched ) {
+            <div class="flex p-4 mt-1 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                role="alert">
+                <ul class="mt-1.5 list-disc list-inside">
+                    @if (phoneControl?.getError('required')) {
+                    <li>phone Is Required</li>
+                    }@else if (phoneControl?.getError('pattern')) {
+                    <li>Invlid phone</li>
+                    }
+                </ul>
+            </div>
+            }
+
+        </div>
+
+        <button type="submit" [disabled]="isCallingApi"  (click)="register()"
+            class="text-white  bg-main hover:bg-main focus:ring-4 focus:outline-none focus:ring-emerald-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-main dark:hover:bg-main dark:focus:ring-main">
+            @if (isCallingApi) {
+                <i class="fa fa-spin fa-spinner"></i>
+
+            }@else {
+                Sign Up
+            }
+            </button>
+    </form>
+</div>
